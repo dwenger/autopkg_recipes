@@ -61,7 +61,52 @@
 				<string>%RECIPE_CACHE_DIR%/%NAME%</string>
 			</dict>
 			<key>Processor</key>
-			<string>DmgCreator</string>
+			<string>PkgCreator</string>
+            <key>Arguments</key>
+            <dict>
+               <key>pkg_request</key>
+               <dict>
+                  <key>pkgname</key>
+                  <string>%VENDOR%-%version%</string>
+                  <key>version</key>
+                  <string>%version%</string>
+                  <key>id</key>
+                  <string>net.java.openjdk</string>
+                  <key>scripts</key>
+                  <string>Scripts</string>
+                  <key>options</key>
+                  <string>purge_ds_store</string>
+                  <key>chown</key>
+                  <array>
+                     <dict>
+                        <key>path</key>
+                        <string>Library</string>
+                        <key>user</key>
+                        <string>root</string>
+                        <key>group</key>
+                        <string>wheel</string>
+                     </dict>
+                     <dict>
+                        <key>path</key>
+                        <string>Library/Java</string>
+                        <key>user</key>
+                        <string>root</string>
+                        <key>group</key>
+                        <string>wheel</string>
+                     </dict>
+                     <dict>
+                        <key>path</key>
+                        <string>Library/Java/JavaVirtualMachines</string>
+                        <key>user</key>
+                        <string>root</string>
+                        <key>group</key>
+                        <string>wheel</string>
+                     </dict>
+                  </array>
+               </dict>
+            </dict>
+         </dict>
+         <dict>
 		</dict>
 		<dict>
 			<key>Arguments</key>
