@@ -7,25 +7,26 @@
 	<key>Description</key>
 	<string>Downloads the latest version of openjdk11-binaries and imports it into Munki.</string>
 	<key>Identifier</key>
-	<string>com.github.dwenger.munki.openjdk11-binaries</string>
+	<string>com.github.dwenger.munki.openjdk11</string>
 	<key>Input</key>
 	<dict>
 		<key>MUNKI_REPO_SUBDIR</key>
 		<string>apps/%NAME%</string>
 		<key>NAME</key>
-		<string>openjdk11-binaries</string>
+		<string>OpenJDK11</string>
 		<key>pkginfo</key>
 		<dict>
 			<key>catalogs</key>
 			<array>
 				<string>testing</string>
+				<string>production</string>
 			</array>
 			<key>description</key>
-			<string>The new home for releases and nightlies for all OpenJDK11 variants and platforms</string>
+			<string></string>
 			<key>developer</key>
-			<string>AdoptOpenJDK</string>
+			<string></string>
 			<key>display_name</key>
-			<string>openjdk11-binaries</string>
+			<string>OpenJDK11</string>
 			<key>name</key>
 			<string>%NAME%</string>
 			<key>unattended_install</key>
@@ -35,7 +36,7 @@
 	<key>MinimumVersion</key>
 	<string>1.0.0</string>
 	<key>ParentRecipe</key>
-	<string>com.github.dwenger.download.openjdk11-binaries</string>
+	<string>com.github.rtrouton.download.OpenJDK11</string>
 	<key>Process</key>
 	<array>
 		<dict>
