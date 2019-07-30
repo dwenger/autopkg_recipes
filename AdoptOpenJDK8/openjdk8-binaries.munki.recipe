@@ -7,7 +7,7 @@
 	<key>Description</key>
 	<string>Downloads the latest version of openjdk8-binaries and imports it into Munki.</string>
 	<key>Identifier</key>
-	<string>com.github.dwenger.munki.openjdk8-binaries</string>
+	<string>com.github.autopkg.dwenger.munki.openjdk8-binaries</string>
 	<key>Input</key>
 	<dict>
 		<key>MUNKI_REPO_SUBDIR</key>
@@ -35,7 +35,7 @@
 	<key>MinimumVersion</key>
 	<string>1.0.0</string>
 	<key>ParentRecipe</key>
-	<string>com.github.dwenger.download.openjdk8-binaries</string>
+	<string>com.github.autopkg.dwenger.download.openjdk8-binaries</string>
 	<key>Process</key>
 	<array>
 		<dict>

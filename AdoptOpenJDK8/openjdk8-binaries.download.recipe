@@ -7,7 +7,7 @@
 	<key>Description</key>
 	<string>Downloads the latest version of openjdk8-binaries.</string>
 	<key>Identifier</key>
-	<string>com.github.dwenger.download.openjdk8-binaries</string>
+	<string>com.github.autopkg.dwenger.download.openjdk8-binaries</string>
 	<key>Input</key>
 	<dict>
 		<key>GITHUB_REPO</key>
