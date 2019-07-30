@@ -19,6 +19,7 @@
 			<key>catalogs</key>
 			<array>
 				<string>testing</string>
+				<string>production</string>
 			</array>
 			<key>description</key>
 			<string>A software attempt to address the "double key press" issue on Apple's butterfly keyboard</string>
