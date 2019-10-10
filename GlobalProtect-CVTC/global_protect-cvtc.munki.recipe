@@ -13,7 +13,7 @@
 		<key>MUNKI_REPO_SUBDIR</key>
 		<string>apps/%NAME%</string>
 		<key>NAME</key>
-		<string>Global_Protect</string>
+		<string>GlobalProtect</string>
 		<key>pkginfo</key>
 		<dict>
 			<key>catalogs</key>
@@ -24,9 +24,9 @@
 			<key>description</key>
 			<string>GlobalProtect pkg from the CVTC gateway.</string>
 			<key>developer</key>
-			<string>apple_at_cvtc</string>
+			<string></string>
 			<key>display_name</key>
-			<string>get_protection</string>
+			<string>GlobalProtect</string>
 			<key>name</key>
 			<string>%NAME%</string>
 			<key>unattended_install</key>

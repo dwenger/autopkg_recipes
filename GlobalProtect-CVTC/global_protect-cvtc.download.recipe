@@ -13,7 +13,7 @@
 		<key>DOWNLOAD_URL</key>
 		<string>https://api.bitbucket.org/2.0/repositories/apple_at_cvtc/get_protection/downloads/GlobalProtect.pkg</string>
 		<key>NAME</key>
-		<string>global_protect-cvtc</string>
+		<string>GlobalProtect</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>1.0.0</string>
