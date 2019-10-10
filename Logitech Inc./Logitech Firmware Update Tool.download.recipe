@@ -25,7 +25,7 @@
 			<key>Arguments</key>
 			<dict>
 				<key>filename</key>
-				<string>%NAME%.tgz</string>
+				<string>%NAME%.zip</string>
 				<key>url</key>
 				<string>%DOWNLOAD_URL%</string>
 			</dict>
