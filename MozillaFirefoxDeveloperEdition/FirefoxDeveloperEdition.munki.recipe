@@ -2,18 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Comment</key>
-	<string>Created with Recipe Robot v1.0.5 (https://github.com/homebysix/recipe-robot)</string>
 	<key>Description</key>
 	<string>Downloads the latest version of Firefox Developer Edition and imports it into Munki.</string>
 	<key>Identifier</key>
 	<string>edu.cvtc.autopkg.munki.FirefoxDeveloperEdition</string>
 	<key>Input</key>
 	<dict>
+		<key>DISABLE_CODE_SIGNATURE_VERIFICATION</key>
+		<false/>
+		<key>LOCALE</key>
+		<string>en-US</string>
 		<key>MUNKI_REPO_SUBDIR</key>
 		<string>apps/%NAME%</string>
 		<key>NAME</key>
 		<string>Firefox_Developer_Edition</string>
+		<key>RELEASE</key>
+		<string>devedition-latest</string>
 		<key>pkginfo</key>
 		<dict>
 			<key>catalogs</key>
@@ -21,10 +25,10 @@
 				<string>testing</string>
 				<string>production</string>
 			</array>
-			<key>description</key>
-			<string> </string>
 			<key>developer</key>
 			<string>Mozilla Corporation</string>
+			<key>description</key>
+			<string>Firefox, built just for developers. Mozilla Firefox is a free and open source web browser.</string>
 			<key>display_name</key>
 			<string>Firefox Developer Edition</string>
 			<key>name</key>
@@ -33,23 +37,43 @@
 			<true/>
 		</dict>
 	</dict>
-	<key>MinimumVersion</key>
-	<string>1.0.0</string>
 	<key>ParentRecipe</key>
-	<string>edu.cvtc.autopkg.download.FirefoxDeveloperEdition</string>
-	<key>Process</key>
-	<array>
+	<string>com.github.autopkg.munki.firefox-rc-en_US</string>
+	<key>ParentRecipeTrustInfo</key>
+	<dict>
+		<key>non_core_processors</key>
 		<dict>
-			<key>Arguments</key>
+			<key>MozillaURLProvider</key>
 			<dict>
-				<key>pkg_path</key>
-				<string>%pathname%</string>
-				<key>repo_subdirectory</key>
-				<string>%MUNKI_REPO_SUBDIR%</string>
+				<key>git_hash</key>
+				<string>c32b1b760a158fb4e3a2a014de4b9014f0c01723</string>
+				<key>path</key>
+				<string>~/Library/AutoPkg/RecipeRepos/com.github.autopkg.recipes/Mozilla/MozillaURLProvider.py</string>
+				<key>sha256_hash</key>
+				<string>0e92f890fcf56482bbf452fde845e305b0de27b5b6e2fa023d47fa73e8e5537d</string>
 			</dict>
-			<key>Processor</key>
-			<string>MunkiImporter</string>
 		</dict>
-	</array>
+		<key>parent_recipes</key>
+		<dict>
+			<key>com.github.autopkg.download.firefox-rc-en_US</key>
+			<dict>
+				<key>git_hash</key>
+				<string>ee4380374058507eaef81f21a28a8045396ab190</string>
+				<key>path</key>
+				<string>~/Library/AutoPkg/RecipeRepos/com.github.autopkg.recipes/Mozilla/Firefox.download.recipe</string>
+				<key>sha256_hash</key>
+				<string>eec7d3edd86e8fbf5cb75d53de7a85a966bf9eea1a8abc663dd52d2740fb9831</string>
+			</dict>
+			<key>com.github.autopkg.munki.firefox-rc-en_US</key>
+			<dict>
+				<key>git_hash</key>
+				<string>8332edca4fbafc1e8aff8c119e571f27b4853bb5</string>
+				<key>path</key>
+				<string>~/Library/AutoPkg/RecipeRepos/com.github.autopkg.recipes/Mozilla/Firefox.munki.recipe</string>
+				<key>sha256_hash</key>
+				<string>ca589a917fa5251ad39071dd49b168ed9c6549f4b085e706ea541829c3ec426d</string>
+			</dict>
+		</dict>
+	</dict>
 </dict>
 </plist>
