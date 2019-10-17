@@ -39,6 +39,41 @@
 	<string>com.github.dwenger.download.global_protect-cvtc</string>
 	<key>Process</key>
 	<array>
+		<!-- Thanks to Andreas Hubert for figuring out getting version info from
+			 this weird pkg -
+			 https://github.com/autopkg/peshay-recipes/blob/master/PaloAlto/GlobalProtectMac.filewave.recipe
+		     -->
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%</string>
+				<key>flat_pkg_path</key>
+				<string>%pathname%</string>
+			</dict>
+			<key>Processor</key>
+			<string>FlatPkgUnpacker</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%</string>
+				<key>pkg_payload_path</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%/gp.pkg/Payload</string>
+			</dict>
+			<key>Processor</key>
+			<string>PkgPayloadUnpacker</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>input_plist_path</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%/Contents/Info.plist</string>
+			</dict>
+			<key>Processor</key>
+			<string>Versioner</string>
+		</dict>
 		<dict>
 			<key>Arguments</key>
 			<dict>
@@ -46,6 +81,10 @@
 				<string>%pathname%</string>
 				<key>repo_subdirectory</key>
 				<string>%MUNKI_REPO_SUBDIR%</string>
+				<key>additional_makepkginfo_options</key>
+				<array>
+					<string>--pkgvers=%version%</string>
+				</array>
 			</dict>
 			<key>Processor</key>
 			<string>MunkiImporter</string>
