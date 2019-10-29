@@ -18,7 +18,8 @@
 		<dict>
 			<key>catalogs</key>
 			<array>
-				<string>testing,production</string>
+				<string>testing</string>
+				<string>production</string>
 			</array>
 			<key>description</key>
 			<string>Create labels and control your Seiko Instruments Smart Label Printer.</string>
