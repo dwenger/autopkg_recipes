@@ -16,6 +16,8 @@
 		<string>GlobalProtect</string>
 		<key>pkginfo</key>
 		<dict>
+			<key>RestartAction</key>
+			<string>RequireRestart</string>
 			<key>catalogs</key>
 			<array>
 				<string>testing</string>
