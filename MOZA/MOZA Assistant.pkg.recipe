@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Creates a pkg from the MOZA Assistant app.</string>
+	<key>Identifier</key>
+	<string>edu.cvtc.autopkg.pkg.MOZAAssistant</string>
+	<key>ParentRecipe</key>
+	<string>edu.cvtc.autopkg.download.MOZAAssistant</string>
+	<key>Input</key>
+	<dict>
+		<key>BUNDLE_ID</key>
+		<string>com.gudsen.MOZA-Assistant</string>
+		<key>NAME</key>
+		<string>MOZA Assistant</string>
+		<key>MUNKI_REPO_SUBDIR</key>
+		<string>apps/%NAME%</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>1.0.0</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>app_path</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%/Applications/MOZA_Assistant_Mac%match%_Package/MOZA_Assistant_v%match%.app</string>
+				<key>bundleid</key>
+				<string>com.gudsen.MOZA-Assistant</string>
+				<key>version</key>
+				<string>%match%</string>
+				<key>pkg_path</key>
+				<string>%RECIPE_CACHE_DIR%/MOZA_Assistant-%version%.pkg</string>
+			</dict>
+			<key>Processor</key>
+			<string>AppPkgCreator</string>
+		</dict>
+	</array>
+</dict>
+</plist>

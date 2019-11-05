@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Downloads Smart Label Creator available from https://siibusinessproducts.com/support/software-driver-downloads/</string>
+	<key>Identifier</key>
+	<string>edu.cvtc.autopkg.download.SIISmartLabelCreator</string>
+	<key>Input</key>
+	<dict>
+		<key>download_page</key>
+		<string>https://siibusinessproducts.com/support/software-driver-downloads/</string>
+		<key>NAME</key>
+		<string>Smart Label Creator</string>
+	</dict>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>re_pattern</key>
+				<string>/wp-content/.*/SLP_MACapp_EN_.*.zip</string>
+				<key>url</key>
+				<string>%download_page%</string>
+			</dict>
+			<key>Processor</key>
+			<string>URLTextSearcher</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>url</key>
+				<string>https://siibusinessproducts.com/%match%</string>
+			</dict>
+			<key>Processor</key>
+			<string>URLDownloader</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>EndOfCheckPhase</string>
+		</dict>
+	</array>
+</dict>
+</plist>

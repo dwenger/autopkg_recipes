@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Downloads MOZA Assistant available from https://www.gudsen.com/moza-air-downloads</string>
+	<key>Identifier</key>
+	<string>edu.cvtc.autopkg.download.MOZAAssistant</string>
+	<key>Input</key>
+	<dict>
+		<key>download_page</key>
+		<string>https://www.gudsen.com/moza-air-downloads</string>
+		<key>NAME</key>
+		<string>MOZA Assistant</string>
+	</dict>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>re_pattern</key>
+				<!--
+					We need to match only the package's version so we can use it
+					in three separate places below. I know it's ugly.
+				-->
+				<string>(?&lt;=MOZA_Assistant_Mac)[0-9].[0-9].[0-9](?=_Package.zip)</string>
+				<key>url</key>
+				<string>%download_page%</string>
+			</dict>
+			<key>Processor</key>
+			<string>URLTextSearcher</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>url</key>
+				<string>https://www.gudsen.com/upfile/admin/file/download/MOZA_Assistant_Mac%match%_Package.zip</string>
+			</dict>
+			<key>Processor</key>
+			<string>URLDownloader</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>EndOfCheckPhase</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>archive_path</key>
+				<string>%pathname%</string>
+				<key>destination_path</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%/Applications</string>
+				<key>purge_destination</key>
+				<true/>
+			</dict>
+			<key>Processor</key>
+			<string>Unarchiver</string>
+		</dict>
+	</array>
+</dict>
+</plist>
