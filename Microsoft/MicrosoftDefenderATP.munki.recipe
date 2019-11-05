@@ -17,7 +17,7 @@
 			<key>catalogs</key>
 			<array>
 				<string>testing</string>
-                <string>production</string>
+				<string>production</string>
 			</array>
 			<key>description</key>
 			<string>Microsoft Defender Advanced Threat Protection is a platform designed to help enterprise networks prevent, detect, investigate, and respond to advanced threats.</string>
