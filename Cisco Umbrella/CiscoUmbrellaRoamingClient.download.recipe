@@ -43,6 +43,8 @@
 		    <dict>
 			<key>url</key>
 			<string>%DOWNLOAD_URL%/RoamingClient_MAC_%version%.pkg.zip</string>
+			<key>filename</key>
+			<string>%NAME%.tgz</string>
 		    </dict>
 		</dict>
 		<dict>
