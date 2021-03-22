@@ -12,25 +12,40 @@
 	<dict>
 		<key>APP_FILENAME</key>
 		<string>Cisco Umbrella Roaming Client</string>
-		<key>DOWNLOAD_URL</key>
-		<string>http://shared.opendns.com/roaming/enterprise/release/mac/production/RoamingClient_MAC.mpkg.zip</string>
+		<key>SEARCH_URL</key>
+		<string>https://disthost.umbrella.com/roaming/upgrade/mac/stage/manifest.json</string>
+		<key>SEARCH_PATTERN</key>
+		<string>RoamingClient_MAC_(?P&lt;version&gt;.*?).pkg.zip</string>
 		<key>NAME</key>
 		<string>Cisco Umbrella Roaming Client</string>
+		<key>DOWNLOAD_URL</key>
+		<string>https://disthost.umbrella.com/roaming/upgrade/mac/stage</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>1.0.0</string>
 	<key>Process</key>
 	<array>
 		<dict>
-			<key>Arguments</key>
-			<dict>
-				<key>filename</key>
-				<string>%NAME%.tgz</string>
-				<key>url</key>
-				<string>%DOWNLOAD_URL%</string>
-			</dict>
-			<key>Processor</key>
-			<string>URLDownloader</string>
+		    <key>Processor</key>
+		    <string>URLTextSearcher</string>
+		    <key>Arguments</key>
+		    <dict>
+			<key>url</key>
+			<string>%SEARCH_URL%</string>
+			<key>re_pattern</key>
+			<string>%SEARCH_PATTERN%</string>
+		    </dict>
+		</dict>
+		<dict>
+		    <key>Processor</key>
+		    <string>URLDownloader</string>
+		    <key>Arguments</key>
+		    <dict>
+			<key>url</key>
+			<string>%DOWNLOAD_URL%/RoamingClient_MAC_%version%.pkg.zip</string>
+			<key>filename</key>
+			<string>%NAME%.tgz</string>
+		    </dict>
 		</dict>
 		<dict>
 			<key>Processor</key>
