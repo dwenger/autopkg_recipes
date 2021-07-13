@@ -19,7 +19,7 @@
 			<key>Arguments</key>
 			<dict>
 				<key>re_pattern</key>
-				<string>/wp-content/.*/SLP_MACapp_EN_.*.zip</string>
+				<string>wp-content/.*/SmartLabelPrinter.*\.zip</string>
 				<key>url</key>
 				<string>%download_page%</string>
 			</dict>
@@ -31,6 +31,8 @@
 			<dict>
 				<key>url</key>
 				<string>https://siibusinessproducts.com/%match%</string>
+				<key>filename</key>
+				<string>Smart Label Creator.dmg.zip</string>
 			</dict>
 			<key>Processor</key>
 			<string>URLDownloader</string>

@@ -2,16 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Comment</key>
-	<string>Created with Recipe Robot v1.1.2 (https://github.com/homebysix/recipe-robot)</string>
 	<key>Description</key>
 	<string>Downloads the latest version of openjdk8-binaries.</string>
 	<key>Identifier</key>
 	<string>com.github.autopkg.dwenger.download.openjdk8-binaries</string>
 	<key>Input</key>
 	<dict>
-		<key>GITHUB_REPO</key>
-		<string>AdoptOpenJDK/openjdk8-binaries</string>
 		<key>NAME</key>
 		<string>openjdk8-binaries</string>
 	</dict>
@@ -22,19 +18,10 @@
 		<dict>
 			<key>Arguments</key>
 			<dict>
-				<key>asset_regex</key>
-				<string>.*\.tgz$</string>
-				<key>github_repo</key>
-				<string>%GITHUB_REPO%</string>
-			</dict>
-			<key>Processor</key>
-			<string>GitHubReleasesInfoProvider</string>
-		</dict>
-		<dict>
-			<key>Arguments</key>
-			<dict>
-				<key>filename</key>
-				<string>%NAME%-%version%.tgz</string>
+				<key>prefetch_filename</key>
+				<true/>
+				<key>url</key>
+				<string>https://api.adoptopenjdk.net/v3/binary/latest/8/ga/mac/x64/jdk/hotspot/normal/adoptopenjdk?project=jdk</string>
 			</dict>
 			<key>Processor</key>
 			<string>URLDownloader</string>
