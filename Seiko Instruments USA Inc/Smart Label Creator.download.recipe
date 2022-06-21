@@ -9,9 +9,11 @@
 	<key>Input</key>
 	<dict>
 		<key>download_page</key>
-		<string>https://siibusinessproducts.com/support/software-driver-downloads/</string>
+		<string>https://siibusinessproducts.com/support/mac-os-software-and-drivers/</string>
 		<key>NAME</key>
 		<string>Smart Label Creator</string>
+		<key>SEARCH_PATTERN</key>
+		<string>wp-content/uploads/20\d{2}/\d{2}/SmartLabelPrinter_[A-Z]\d{4}.dmg.zip</string>
 	</dict>
 	<key>Process</key>
 	<array>
@@ -19,7 +21,7 @@
 			<key>Arguments</key>
 			<dict>
 				<key>re_pattern</key>
-				<string>wp-content/.*/SmartLabelPrinter.*\.zip</string>
+				<string>%SEARCH_PATTERN%</string>
 				<key>url</key>
 				<string>%download_page%</string>
 			</dict>
