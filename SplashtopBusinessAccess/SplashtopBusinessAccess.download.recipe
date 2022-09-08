@@ -10,10 +10,8 @@
 		<dict>
 			<key>NAME</key>
 			<string>SplashtopBusinessAccess</string>
-			<key>SCRAPE_URL</key>
-			<string>https://www.splashtop.com/wp-content/themes/responsive/downloadx.php?product=stb&amp;platform=mac-client&amp;r=</string>
-			<key>REG_EX</key>
-			<string>Splash.*\.dmg</string>
+			<key>URL</key>
+			<string>https://my.splashtop.com/src/mac</string>
 		</dict>
 		<key>MinimumVersion</key>
 		<string>1.0</string>
@@ -22,26 +20,8 @@
 			<dict>
 				<key>Arguments</key>
 				<dict>
-					<key>url</key>
-					<string>%SCRAPE_URL%</string>
-					<key>result_output_var_name</key>
-					<string>URL</string>
-					<key>re_pattern</key>
-					<string>%REG_EX%</string>
-                    <key>request_headers</key>
-                    <dict>
-                        <key>user-agent</key>
-                        <string>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10; rv:33.0) Gecko/20100101 Firefox/33.0</string>
-                    </dict>
-				</dict>
-				<key>Processor</key>
-				<string>URLTextSearcher</string>
-			</dict>
-			<dict>
-				<key>Arguments</key>
-				<dict>
                     <key>url</key>
-				    <string>https://download.splashtop.com/macclient/STB/%URL%</string>
+				    <string>%URL%</string>
 					<key>filename</key>
 					<string>%NAME%.dmg</string>
 				</dict>
