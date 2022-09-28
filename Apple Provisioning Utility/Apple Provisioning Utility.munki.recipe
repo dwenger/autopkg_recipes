@@ -40,7 +40,7 @@
 			<key>Arguments</key>
 			<dict>
 				<key>pattern</key>
-				<string>/Users/macadmin/Library/CloudStorage/OneDrive-SharedLibraries-ChippewaValleyTechnicalCollege/Apple Device Management - Documents/SpecialPackages/Apple Provisioning Utility/current/*.pkg</string>
+				<string>/Users/macadmin/Library/CloudStorage/OneDrive-SharedLibraries-ChippewaValleyTechnicalCollege/Apple Device Management - SpecialPackages/Apple Provisioning Utility/current/*.pkg</string>
 			</dict>
 			<key>Processor</key>
 			<string>FileFinder</string>
