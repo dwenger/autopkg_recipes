@@ -14,30 +14,22 @@
 		<string>Aftermath</string>
 		<key>APP_DESTINATION</key>
 		<string>/Applications</string>
-		<key>pkginfo</key>
-		<dict>
-			<key>catalogs</key>
-			<array>
-				<string>testing</string>
-			</array>
-			<key>description</key>
-			<string>Aftermath is a Swift-based, open-source incident response framework.</string>
-            <key>display_name</key>
-            <string>Aftermath</string>
-			<key>name</key>
-			<string>%NAME%</string>
-			<key>unattended_install</key>
-			<true/>
-			<key>category</key>
-			<string>Utilities</string>
-			<key>developer</key>
-			<string>Jamf</string>
-		</dict>
 	</dict>
     <key>ParentRecipe</key>
     <string>com.github.dwenger.download.Aftermath</string>
 	<key>Process</key>
 	<array>
+		<dict>
+            <key>Processor</key>
+			<string>GitHubReleasesInfoProvider</string>
+			<key>Arguments</key>
+			<dict>
+				<key>asset_regex</key>
+				<string>Aftermath.pkg</string>
+				<key>github_repo</key>
+				<string>jamf/aftermath</string>
+			</dict>
+		</dict>
 		<dict>
 			<key>Arguments</key>
 			<dict>
@@ -45,11 +37,27 @@
 				<string>%pathname%</string>
 				<key>repo_subdirectory</key>
 				<string>%MUNKI_REPO_SUBDIR%</string>
-				<key>additional_makepkginfo_options</key>
-				<array>
-					<string>--destinationpath</string>
-					<string>%APP_DESTINATION%</string>
-				</array>
+				<key>pkginfo</key>
+				<dict>
+					<key>catalogs</key>
+					<array>
+						<string>testing</string>
+					</array>
+					<key>description</key>
+					<string>Aftermath is a Swift-based, open-source incident response framework.</string>
+					<key>display_name</key>
+					<string>Aftermath</string>
+					<key>name</key>
+					<string>%NAME%</string>
+					<key>unattended_install</key>
+					<true/>
+					<key>version</key>
+					<string>%version%</string>
+					<key>category</key>
+					<string>Utilities</string>
+					<key>developer</key>
+					<string>Jamf</string>
+				</dict>
 			</dict>
 			<key>Processor</key>
 			<string>MunkiImporter</string>
