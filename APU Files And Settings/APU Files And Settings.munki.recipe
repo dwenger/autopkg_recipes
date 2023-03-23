@@ -57,6 +57,17 @@
 			<string>Copier</string>
 		</dict>
 		<dict>
+			<key>Processor</key>
+			<string>ModeChanger</string>
+			<key>Arguments</key>
+			<dict>
+				<key>filename</key>
+				<string>%RECIPE_CACHE_DIR%/%found_basename%</string>
+				<key>mode</key>
+				<string>744</string>
+			</dict>
+		</dict>
+		<dict>
 			<key>Arguments</key>
 			<dict>
 				<key>pkg_path</key>
