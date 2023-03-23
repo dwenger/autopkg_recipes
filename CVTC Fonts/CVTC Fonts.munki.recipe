@@ -64,7 +64,7 @@
 				<key>filename</key>
 				<string>%RECIPE_CACHE_DIR%/%found_basename%</string>
 				<key>mode</key>
-				<string>a+r</string>
+				<string>744</string>
 			</dict>
 		</dict>
 		<dict>
