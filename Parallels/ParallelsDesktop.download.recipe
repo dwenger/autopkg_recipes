@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Downloads the major version of Parallels Desktop specified by MAJOR_VERSION. Forked from homebysix to address our needs.
+</string>
+	<key>Identifier</key>
+	<string>com.github.dwenger.download.ParallelsDesktop</string>
+	<key>Input</key>
+	<dict>
+		<key>MAJOR_VERSION</key>
+		<string>18</string>
+		<key>NAME</key>
+		<string>Parallels Desktop</string>
+		<key>PLATFORM_ARCH</key>
+		<string></string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>0.6.1</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>re_pattern</key>
+				<string>"files": {\s*"DMG":\s*"([^"]*)(?:/\?experience=enter_key)"[^\}]*\}\s*,\s*"name":\s*"Parallels Desktop %MAJOR_VERSION% for Mac Image"</string>
+				<key>result_output_var_name</key>
+				<string>url_version</string>
+				<key>url</key>
+				<string>https://download.parallels.com/website_links/desktop/%MAJOR_VERSION%/builds-en_US.json</string>
+			</dict>
+			<key>Processor</key>
+			<string>URLTextSearcher</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>prefetch_filename</key>
+				<string>True</string>
+				<key>url</key>
+				<string>%url_version%%PLATFORM_ARCH%</string>
+			</dict>
+			<key>Processor</key>
+			<string>URLDownloader</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>EndOfCheckPhase</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>input_path</key>
+				<string>%pathname%/%NAME%.app</string>
+				<key>requirement</key>
+				<string>anchor apple generic and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "4C6364ACXT")</string>
+			</dict>
+			<key>Processor</key>
+			<string>CodeSignatureVerifier</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>pathname</key>
+				<string>%pathname%</string>
+			</dict>
+			<key>Processor</key>
+			<string>FilenameVersioner</string>
+		</dict>
+	</array>
+</dict>
+</plist>
