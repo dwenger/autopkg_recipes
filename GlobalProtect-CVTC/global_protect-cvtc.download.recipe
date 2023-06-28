@@ -11,7 +11,7 @@
 	<key>Input</key>
 	<dict>
 		<key>DOWNLOAD_URL</key>
-		<string>https://api.bitbucket.org/2.0/repositories/apple_at_cvtc/get_protection/downloads/GlobalProtect.pkg</string>
+		<string>https://gitlab.com/api/v4/projects/45279978/jobs/artifacts/main/raw/GlobalProtect.pkg?job=download</string>
 		<key>NAME</key>
 		<string>GlobalProtect</string>
 	</dict>
