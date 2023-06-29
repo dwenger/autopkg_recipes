@@ -33,7 +33,7 @@
     <key>MinimumVersion</key>
     <string>0.2.0</string>
     <key>ParentRecipe</key>
-    <string>com.github.rtrouton.pkg.SapMachineUniversalJDK17</string>
+    <string>com.github.dwenger.pkg.SapMachineUniversalJDK17</string>
     <key>Process</key>
     <array>
         <dict>
