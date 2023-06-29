@@ -15,6 +15,14 @@
 # limitations under the License.
 """See docstring for GitHubReleasesInfoProvider class"""
 
+import os
+import sys
+from urllib.parse import urlparse
+
+# Get the current script directory
+current_directory = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(current_directory)
+
 import re
 
 import GitHub
@@ -150,13 +158,21 @@ class GitHubReleasesInfoProviderPaginated(Processor):
             all_releases.extend(releases)
 
             # Check the Link header for the URL of the next page
-            link_header = headers.get("Link")
+            link_header = headers.get("link")
             if link_header:
                 # Parse the Link header
-                links = dict(
-                    re.findall(r'<([^>]*)>;\s*rel="(\w+)"', link_header)
-                )
-                releases_uri = links.get("next")
+                matches = re.findall(r'<([^>]*)>;\s*rel="(\w+)"', link_header)
+                if matches:
+                    links = {rel: url for url, rel in matches}
+                else:
+                    links = {}
+                next_link = links.get("next")
+                # Remove the base URL from the next link URL
+                if next_link:
+                    parsed_next_link = urlparse(next_link)
+                    releases_uri = f"{parsed_next_link.path}?{parsed_next_link.query}"
+                else:
+                    releases_uri = None
             else:
                 releases_uri = None
 
