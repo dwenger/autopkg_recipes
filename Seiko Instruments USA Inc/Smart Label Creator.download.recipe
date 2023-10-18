@@ -13,7 +13,7 @@
 		<key>NAME</key>
 		<string>Smart Label Creator</string>
 		<key>SEARCH_PATTERN</key>
-		<string>wp-content/uploads/20\d{2}/\d{2}/SmartLabelPrinter_[A-Z]\d{4}.dmg.zip</string>
+		<string>wp-content/uploads/20\d{2}/\d{2}/Smart-Label-Creator-for-MAC-[A-Z]\d{4}.zip</string>
 	</dict>
 	<key>Process</key>
 	<array>

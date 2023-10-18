@@ -26,6 +26,11 @@
 				<string>%NAME%.pkg</string>
 				<key>url</key>
 				<string>%DOWNLOAD_URL%</string>
+				<key>request_headers</key>
+				<dict>
+					<key>PRIVATE-TOKEN</key>
+					<string>%GLOBAL_PROTECT_TOKEN%</string>
+				</dict>
 			</dict>
 			<key>Processor</key>
 			<string>URLDownloader</string>

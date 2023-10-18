@@ -3,15 +3,15 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads thev latest version of SapMachineUniversalJDK17 and imports into Munki.</string>
+    <string>Downloads thev latest version of SapMachineUniversalJDK19 and imports into Munki.</string>
     <key>Identifier</key>
-    <string>com.github.dwenger.munki.SapMachineUniversalJDK17</string>
+    <string>com.github.dwenger.munki.SapMachineUniversalJDK19</string>
     <key>Input</key>
     <dict>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps/%NAME%</string>
         <key>NAME</key>
-        <string>SapMachineUniversalJDK17</string>
+        <string>SapMachineUniversalJDK19</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -21,7 +21,7 @@
             <key>description</key>
             <string></string>
             <key>display_name</key>
-            <string>SapMachineUniversalJDK17</string>
+            <string>SapMachineUniversalJDK19</string>
             <key>name</key>
             <string>%NAME%</string>
             <key>unattended_install</key>
@@ -33,7 +33,7 @@
     <key>MinimumVersion</key>
     <string>0.2.0</string>
     <key>ParentRecipe</key>
-    <string>com.github.dwenger.pkg.SapMachineUniversalJDK17</string>
+    <string>com.github.rtrouton.pkg.SapMachineUniversalJDK19</string>
     <key>Process</key>
     <array>
         <dict>
