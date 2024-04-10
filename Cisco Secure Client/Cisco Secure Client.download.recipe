@@ -21,7 +21,7 @@
             <key>Arguments</key>
             <dict>
                <key>pattern</key>
-               <string>/Users/bweber26/Library/CloudStorage/OneDrive-SharedLibraries-ChippewaValleyTechnicalCollege/Apple Device Management - Documents/SpecialPackages/Cisco Secure Client/current/*.dmg</string>
+               <string>/Users/macadmin/Library/CloudStorage/OneDrive-SharedLibraries-ChippewaValleyTechnicalCollege/Apple Device Management - Documents/SpecialPackages/Cisco Secure Client/current/*.dmg</string>
             </dict>
             <key>Processor</key>
             <string>FileFinder</string>
