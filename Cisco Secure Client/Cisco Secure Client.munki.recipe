@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Imports the created package from the pkg recipe into Munki.</string>
+	<key>Identifier</key>
+	<string>com.github.dwenger.munki.CiscoSecureClient</string>
+	<key>ParentRecipe</key>
+	<string>com.github.dwenger.pkg.CiscoSecureClient</string>
+	<key>Input</key>
+	<dict>
+		<key>BUNDLE_ID</key>
+		<string>com.cisco.SecureClient</string>
+		<key>NAME</key>
+		<string>Cisco Secure Client</string>
+		<key>MUNKI_REPO_SUBDIR</key>
+		<string>apps/%NAME%</string>
+		<key>pkginfo</key>
+		<dict>
+			<key>catalogs</key>
+			<array>
+				<string>testing</string>
+				<string>production</string>
+			</array>
+			<key>description</key>
+			<string>Cisco Secure Client (formerly AnyConnect) is a unified agent for Cisco endpoint software deployments.</string>
+			<key>developer</key>
+			<string>Cisco</string>
+			<key>display_name</key>
+			<string>Cisco Secure Client</string>
+			<key>name</key>
+			<string>%NAME%</string>
+			<key>unattended_install</key>
+			<true/>
+		</dict>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>1.0.0</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_path</key>
+				<string>%RECIPE_CACHE_DIR%/Cisco_Secure_Client_Umbrella_Only_%version%.pkg</string>
+				<key>repo_subdirectory</key>
+				<string>%MUNKI_REPO_SUBDIR%</string>
+			</dict>
+			<key>Processor</key>
+			<string>MunkiImporter</string>
+		</dict>
+	</array>
+</dict>
+</plist>

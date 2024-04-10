@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+   <dict>
+      <key>Comments</key>
+      <string>Based on https://github.com/autopkg/grahampugh-recipes/blob/master/CiscoSecureClient/CiscoSecureClient.pkg.recipe
+Wraps the vendor package so that it can be run with Choice Changes XML.
+Requires a configuration xml profile (VPN_XML) which should be added to the RECIPE_OVERRIDE_DIR before running the recipe. An example is provided in the recipe repo folder, named example.xml.
+If you need more packages installing, you should make a copy of this recipe and edit the ChoicesXMLGenerator choices list. This isn't overridable. Don't forget to change the Identifier if you do this.</string>
+      <key>Description</key>
+      <string>Creates a Cisco Secure Client package with only Umbrella and required modules enabled.</string>
+      <key>Identifier</key>
+      <string>com.github.dwenger.pkg.CiscoSecureClient</string>
+      <key>ParentRecipe</key>
+      <string>com.github.dwenger.download.CiscoSecureClient</string>
+      <key>Input</key>
+      <dict>
+         <key>NAME</key>
+         <string>Cisco Secure Client</string>
+         <key>VPN_XML</key>
+         <string>example.xml</string>
+         <key>CONTENT_XML</key>
+         <string>No_vpn_this_is_a_placeholder</string>
+         <key>CHOICE_VPN</key>
+         <string>0</string>
+         <key>CHOICE_WEBSECURITY</key>
+         <string>0</string>
+         <key>CHOICE_FIREAMP</key>
+         <string>0</string>
+         <key>CHOICE_DART</key>
+         <string>0</string>
+         <key>CHOICE_DUO</key>
+         <string>0</string>
+         <key>CHOICE_POSTURE</key>
+         <string>0</string>
+         <key>CHOICE_ISEPOSTURE</key>
+         <string>0</string>
+         <key>CHOICE_NVM</key>
+         <string>0</string>
+         <key>CHOICE_THOUSANDEYES</key>
+         <string>0</string>
+         <key>CHOICE_UMBRELLA</key>
+         <string>1</string>
+         <key>CHOICE_ZEROTRUST</key>
+         <string>0</string>
+         <key>DISABLE_VPN</key>
+         <string>true</string>
+         <key>DISABLE_CUSTOMER_EXPERIENCE_FEEDBACK</key>
+         <string>true</string>
+         <key>HIDE_UNINSTALLERS</key>
+         <string>1</string>
+         <key>VENDOR</key>
+         <string>Cisco</string>
+         <key>SOFTWARETITLE1</key>
+         <string>Secure</string>
+         <key>SOFTWARETITLE2</key>
+         <string>Client</string>
+         <key>SOFTWARETITLE3</key>
+         <string>Umbrella_Only</string>
+         <key>PKGID</key>
+         <string>com.cvtc.cisco.SecureClient</string>
+      </dict>
+      <key>MinimumVersion</key>
+      <string>1.0.0</string>
+      <key>Process</key>
+      <array>
+         <dict>
+            <key>Arguments</key>
+            <dict>
+               <key>pkgdirs</key>
+               <dict>
+                  <key>Profiles</key>
+                  <string>0755</string>
+                  <key>Profiles/ampenabler</key>
+                  <string>0755</string>
+                  <key>Profiles/feedback</key>
+                  <string>0755</string>
+                  <key>Profiles/iseposture</key>
+                  <string>0755</string>
+                  <key>Profiles/nvm</key>
+                  <string>0755</string>
+                  <key>Profiles/umbrella</key>
+                  <string>0755</string>
+                  <key>Profiles/vpn</key>
+                  <string>0755</string>
+                  <key>Profiles/websecurity</key>
+                  <string>0755</string>
+               </dict>
+               <key>pkgroot</key>
+               <string>%RECIPE_CACHE_DIR%/Scripts</string>
+            </dict>
+            <key>Processor</key>
+            <string>PkgRootCreator</string>
+         </dict>
+         <dict>
+            <key>Arguments</key>
+            <dict>
+               <key>pkgdirs</key>
+               <dict />
+               <key>pkgroot</key>
+               <string>%RECIPE_CACHE_DIR%/pkgroot</string>
+            </dict>
+            <key>Processor</key>
+            <string>PkgRootCreator</string>
+         </dict>
+         <dict>
+            <key>Arguments</key>
+            <dict>
+               <key>pkg_path</key>
+               <string>%RECIPE_CACHE_DIR%/Scripts/CiscoSecureClient.pkg</string>
+               <key>source_pkg</key>
+               <string>%RECIPE_CACHE_DIR%/%found_basename%/Cisco Secure Client.pkg</string>
+            </dict>
+            <key>Processor</key>
+            <string>PkgCopier</string>
+         </dict>
+         <dict>
+            <key>Arguments</key>
+            <dict>
+               <key>file_content</key>
+               <string>%CONTENT_XML%</string>
+               <key>file_mode</key>
+               <string>0644</string>
+               <key>file_path</key>
+               <string>%RECIPE_CACHE_DIR%/Scripts/Profiles/vpn/%VPN_XML%</string>
+            </dict>
+            <key>Processor</key>
+            <string>FileCreator</string>
+         </dict>
+         <dict>
+            <key>Arguments</key>
+            <dict>
+               <key>file_content</key>
+               <string>{
+  "organizationId" : "%UMBRELLA_ORGANIZATION_ID%",
+  "fingerprint" : "%UMBRELLA_FINGERPRINT%",
+  "userId" : "%UMBRELLA_USER_ID%"
+}</string>
+               <key>file_mode</key>
+               <string>0644</string>
+               <key>file_path</key>
+               <string>%RECIPE_CACHE_DIR%/Scripts/Profiles/umbrella/OrgInfo.json</string>
+            </dict>
+            <key>Processor</key>
+            <string>FileCreator</string>
+         </dict>
+         <dict>
+            <key>Arguments</key>
+            <dict>
+               <key>file_content</key>
+               <string>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
+&lt;plist version="1.0"&gt;
+&lt;array&gt;
+	&lt;dict&gt;
+		&lt;key&gt;attributeSetting&lt;/key&gt;
+		&lt;integer&gt;%CHOICE_VPN%&lt;/integer&gt;
+		&lt;key&gt;choiceAttribute&lt;/key&gt;
+		&lt;string&gt;selected&lt;/string&gt;
+		&lt;key&gt;choiceIdentifier&lt;/key&gt;
+		&lt;string&gt;choice_anyconnect_vpn&lt;/string&gt;
+	&lt;/dict&gt;
+	&lt;dict&gt;
+		&lt;key&gt;attributeSetting&lt;/key&gt;
+		&lt;integer&gt;%CHOICE_WEBSECURITY%&lt;/integer&gt;
+		&lt;key&gt;choiceAttribute&lt;/key&gt;
+		&lt;string&gt;selected&lt;/string&gt;
+		&lt;key&gt;choiceIdentifier&lt;/key&gt;
+		&lt;string&gt;choice_websecurity&lt;/string&gt;
+	&lt;/dict&gt;
+	&lt;dict&gt;
+		&lt;key&gt;attributeSetting&lt;/key&gt;
+		&lt;integer&gt;%CHOICE_FIREAMP%&lt;/integer&gt;
+		&lt;key&gt;choiceAttribute&lt;/key&gt;
+		&lt;string&gt;selected&lt;/string&gt;
+		&lt;key&gt;choiceIdentifier&lt;/key&gt;
+		&lt;string&gt;choice_fireamp&lt;/string&gt;
+	&lt;/dict&gt;
+	&lt;dict&gt;
+		&lt;key&gt;attributeSetting&lt;/key&gt;
+		&lt;integer&gt;%CHOICE_DART%&lt;/integer&gt;
+		&lt;key&gt;choiceAttribute&lt;/key&gt;
+		&lt;string&gt;selected&lt;/string&gt;
+		&lt;key&gt;choiceIdentifier&lt;/key&gt;
+		&lt;string&gt;choice_dart&lt;/string&gt;
+	&lt;/dict&gt;
+	&lt;dict&gt;
+		&lt;key&gt;attributeSetting&lt;/key&gt;
+		&lt;integer&gt;%CHOICE_DUO%&lt;/integer&gt;
+		&lt;key&gt;choiceAttribute&lt;/key&gt;
+		&lt;string&gt;selected&lt;/string&gt;
+		&lt;key&gt;choiceIdentifier&lt;/key&gt;
+		&lt;string&gt;choice_duo&lt;/string&gt;
+	&lt;/dict&gt;
+	&lt;dict&gt;
+		&lt;key&gt;attributeSetting&lt;/key&gt;
+		&lt;integer&gt;%CHOICE_POSTURE%&lt;/integer&gt;
+		&lt;key&gt;choiceAttribute&lt;/key&gt;
+		&lt;string&gt;selected&lt;/string&gt;
+		&lt;key&gt;choiceIdentifier&lt;/key&gt;
+		&lt;string&gt;choice_secure_firewall_posture&lt;/string&gt;
+	&lt;/dict&gt;
+	&lt;dict&gt;
+		&lt;key&gt;attributeSetting&lt;/key&gt;
+		&lt;integer&gt;%CHOICE_ISEPOSTURE%&lt;/integer&gt;
+		&lt;key&gt;choiceAttribute&lt;/key&gt;
+		&lt;string&gt;selected&lt;/string&gt;
+		&lt;key&gt;choiceIdentifier&lt;/key&gt;
+		&lt;string&gt;choice_iseposture&lt;/string&gt;
+	&lt;/dict&gt;
+	&lt;dict&gt;
+		&lt;key&gt;attributeSetting&lt;/key&gt;
+		&lt;integer&gt;%CHOICE_NVM%&lt;/integer&gt;
+		&lt;key&gt;choiceAttribute&lt;/key&gt;
+		&lt;string&gt;selected&lt;/string&gt;
+		&lt;key&gt;choiceIdentifier&lt;/key&gt;
+		&lt;string&gt;choice_nvm&lt;/string&gt;
+	&lt;/dict&gt;
+	&lt;dict&gt;
+		&lt;key&gt;attributeSetting&lt;/key&gt;
+		&lt;integer&gt;%CHOICE_THOUSANDEYES%&lt;/integer&gt;
+		&lt;key&gt;choiceAttribute&lt;/key&gt;
+		&lt;string&gt;selected&lt;/string&gt;
+		&lt;key&gt;choiceIdentifier&lt;/key&gt;
+		&lt;string&gt;choice_thousandeyes&lt;/string&gt;
+	&lt;/dict&gt;
+	&lt;dict&gt;
+		&lt;key&gt;attributeSetting&lt;/key&gt;
+		&lt;integer&gt;%CHOICE_UMBRELLA%&lt;/integer&gt;
+		&lt;key&gt;choiceAttribute&lt;/key&gt;
+		&lt;string&gt;selected&lt;/string&gt;
+		&lt;key&gt;choiceIdentifier&lt;/key&gt;
+		&lt;string&gt;choice_secure_umbrella&lt;/string&gt;
+	&lt;/dict&gt;
+	&lt;dict&gt;
+		&lt;key&gt;attributeSetting&lt;/key&gt;
+		&lt;integer&gt;%CHOICE_ZEROTRUST%&lt;/integer&gt;
+		&lt;key&gt;choiceAttribute&lt;/key&gt;
+		&lt;string&gt;selected&lt;/string&gt;
+		&lt;key&gt;choiceIdentifier&lt;/key&gt;
+		&lt;string&gt;choice_zta&lt;/string&gt;
+	&lt;/dict&gt;
+&lt;/array&gt;
+&lt;/plist&gt;</string>
+               <key>file_mode</key>
+               <string>0755</string>
+               <key>file_path</key>
+               <string>%RECIPE_CACHE_DIR%/Scripts/InstallerChoices.xml</string>
+            </dict>
+            <key>Processor</key>
+            <string>FileCreator</string>
+         </dict>
+         <dict>
+            <key>Arguments</key>
+            <dict>
+               <key>file_content</key>
+               <string>&lt;!– Optional SecureClient installer settings are provided below. Configure the setting(s) as "true" (default "false" or commented out) to perform optional action(s) at install time.  –&gt;
+&lt;Transforms&gt;
+    &lt;DisableVPN&gt;%DISABLE_VPN%&lt;/DisableVPN&gt;
+    &lt;DisableCustomerExperienceFeedback&gt;%DISABLE_CUSTOMER_EXPERIENCE_FEEDBACK%&lt;/DisableCustomerExperienceFeedback&gt;
+&lt;/Transforms&gt;</string>
+               <key>file_mode</key>
+               <string>0755</string>
+               <key>file_path</key>
+               <string>%RECIPE_CACHE_DIR%/Scripts/Profiles/ACTransforms.xml</string>
+            </dict>
+            <key>Processor</key>
+            <string>FileCreator</string>
+         </dict>
+         <dict>
+            <key>Arguments</key>
+            <dict>
+               <key>file_content</key>
+               <string>#!/bin/bash
+packagePath="${0%/*}/CiscoSecureClient.pkg"
+choicesXML="${0%/*}/InstallerChoices.xml"
+# Uninstall AnyConenct Umbrella Roaming client if it is installed
+# Define the path to the application directory
+appDir="/Applications/OpenDNS Roaming Client"
+# Check if the application directory exists
+if [ -d "$appDir" ]; then
+    # Use the 'rm' command to remove the application directory
+    rm -rf "$appDir"
+    
+    # Check if the application directory was successfully removed
+    if [ $? -eq 0 ]; then
+        echo "OpenDNS Roaming Client has been successfully removed."
+    else
+        echo "Failed to remove OpenDNS Roaming Client."
+        exit 1
+    fi
+else
+    echo "OpenDNS Roaming Client is not installed."
+fi
+# Check if the UmbrellaMenu process is running
+if pgrep UmbrellaMenu > /dev/null
+then
+    # If it is running, kill the process
+    pkill UmbrellaMenu
+    echo "UmbrellaMenu process has been killed."
+else
+    echo "UmbrellaMenu process is not running."
+fi
+# Set value in AutoPkg override, default is 1 for "true"
+hideUninstallers="%HIDE_UNINSTALLERS%"
+# Array of uninstall application bundles on the installer's target volume
+if [[ -n $3 ]]; then
+    targetVolume=$3
+else
+    targetVolume=""
+fi
+uninstallAppBundlePaths=(
+		"${targetVolume}/Applications/Cisco/Uninstall Cisco Secure Client – DART.app"
+		"${targetVolume}/Applications/Cisco/Uninstall Cisco Secure Client.app"
+	)
+exitCode=0
+# Run embedded installer with the Choice Changes XML
+if [[ -r "${packagePath}" &amp;&amp; -r "${choicesXML}" ]]; then
+	if ! /usr/sbin/installer -applyChoiceChangesXML "${choicesXML}" -pkg "${packagePath}" -target "$3"; then
+		echo "Installation of package \"${packagePath}\" failed."
+		exitCode=1
+	fi
+else
+	echo "Package \"${packagePath}\" not found."
+	exitCode=1
+fi
+# Hide uninstallers
+# Override will specify 1 as "true"
+# Set to another value to specify "false"
+# If variable is unset/null or still contains an AutoPkg variable reference, treat as "true"
+if [[ "${hideUninstallers}" -eq 1 || \
+      -z "${hideUninstallers}" || \
+      "${hideUninstallers}" == "%""HIDE_UNINSTALLERS""%" ]]; then
+	for uninstallAppBundlePath in "${uninstallAppBundlePaths[@]}"
+	do
+		if [[ -d "${uninstallAppBundlePath}" ]]; then
+			if /usr/bin/chflags hidden "${uninstallAppBundlePath}"; then
+				echo "Uninstaller app bundle \"${uninstallAppBundlePath}\" was hidden successfully."
+			else
+				echo "Uninstaller app bundle \"${uninstallAppBundlePath}\" was not hidden successfully."
+				exitCode=1
+			fi
+		else
+			echo "Uninstaller app bundle \"${uninstallAppBundlePath}\" was not found and cannot be hidden."
+		fi
+    done
+else
+	echo "Uninstallers will not be hidden."
+fi
+# The daemon is not copying over, this fixes that if it is not present
+srcPath="/opt/cisco/secureclient/bin/Cisco Secure Client - AnyConnect VPN Service.app/Contents/Resources/com.cisco.secureclient.vpnagentd.plist"
+dstPath="/Library/LaunchDaemons/com.cisco.secureclient.vpnagentd.plist"
+# Check if the file exists in the destination directory
+if [ ! -f "$dstPath" ]; then
+    # If it does not exist, copy it from the source directory
+    cp "$srcPath" "$dstPath"
+    
+    # Check if the file was successfully copied
+    if [ $? -eq 0 ]; then
+        echo "Daemon has been successfully copied."
+    else
+        echo "Daemon to copy file."
+        exit 1
+    fi
+else
+    echo "Daemon already exists in the destination directory."
+fi
+exit "${exitCode}"</string>
+               <key>file_mode</key>
+               <string>0755</string>
+               <key>file_path</key>
+               <string>%RECIPE_CACHE_DIR%/Scripts/postinstall</string>
+            </dict>
+            <key>Processor</key>
+            <string>FileCreator</string>
+         </dict>
+         <dict>
+            <key>Arguments</key>
+            <dict>
+               <key>pkg_request</key>
+               <dict>
+                  <key>chown</key>
+                  <array />
+                  <key>id</key>
+                  <string>%PKGID%.%VENDOR%%SOFTWARETITLE1%%SOFTWARETITLE2%</string>
+                  <key>pkgname</key>
+                  <string>%VENDOR%_%SOFTWARETITLE1%_%SOFTWARETITLE2%_%SOFTWARETITLE3%_%version%</string>
+                  <key>pkgroot</key>
+                  <string>%RECIPE_CACHE_DIR%/pkgroot</string>
+                  <key>pkgtype</key>
+                  <string>flat</string>
+                  <key>scripts</key>
+                  <string>%RECIPE_CACHE_DIR%/Scripts</string>
+                  <key>version</key>
+                  <string>%version%</string>
+               </dict>
+            </dict>
+            <key>Processor</key>
+            <string>PkgCreator</string>
+         </dict>
+         <dict>
+            <key>Arguments</key>
+            <dict>
+               <key>path_list</key>
+               <array>
+                  <string>%RECIPE_CACHE_DIR%/%VENDOR%</string>
+                  <string>%RECIPE_CACHE_DIR%/pkgroot</string>
+               </array>
+            </dict>
+            <key>Processor</key>
+            <string>PathDeleter</string>
+         </dict>
+      </array>
+   </dict>
+</plist>

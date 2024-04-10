@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+   <dict>
+      <key>Description</key>
+      <string>Downloads a Cisco Secure Client package from a specified URL.</string>
+      <key>Identifier</key>
+      <string>com.github.dwenger.download.CiscoSecureClient</string>
+      <key>Input</key>
+      <dict>
+         <key>NAME</key>
+         <string>Cisco Secure Client</string>
+         <key>VENDOR</key>
+         <string>Cisco</string>
+      </dict>
+      <key>MinimumVersion</key>
+      <string>1.0.0</string>
+      <key>Process</key>
+      <array>
+         <dict>
+            <key>Arguments</key>
+            <dict>
+               <key>pattern</key>
+               <string>/Users/bweber26/Library/CloudStorage/OneDrive-SharedLibraries-ChippewaValleyTechnicalCollege/Apple Device Management - Documents/SpecialPackages/Cisco Secure Client/current/*.dmg</string>
+            </dict>
+            <key>Processor</key>
+            <string>FileFinder</string>
+         </dict>
+         <dict>
+            <key>Arguments</key>
+            <dict>
+               <key>source_path</key>
+               <string>%found_filename%</string>
+               <key>destination_path</key>
+               <string>%RECIPE_CACHE_DIR%</string>
+            </dict>
+            <key>Processor</key>
+            <string>Copier</string>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>FlatPkgUnpacker</string>
+            <key>Arguments</key>
+            <dict>
+               <key>flat_pkg_path</key>
+               <string>%RECIPE_CACHE_DIR%/%found_basename%/Cisco Secure Client.pkg</string>
+               <key>destination_path</key>
+               <string>%RECIPE_CACHE_DIR%/%VENDOR%/unpack</string>
+               <key>purge_destination</key>
+               <true />
+            </dict>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>PkgPayloadUnpacker</string>
+            <key>Arguments</key>
+            <dict>
+               <key>pkg_payload_path</key>
+               <string>%RECIPE_CACHE_DIR%/%VENDOR%/unpack/vpn_module.pkg/Payload</string>
+               <key>destination_path</key>
+               <string>%RECIPE_CACHE_DIR%/%VENDOR%/vpn_module_payload</string>
+               <key>purge_destination</key>
+               <true />
+            </dict>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>Versioner</string>
+            <key>Arguments</key>
+            <dict>
+               <key>input_plist_path</key>
+               <string>%RECIPE_CACHE_DIR%/%VENDOR%/vpn_module_payload/Applications/Cisco/Cisco Secure Client.app/Contents/Info.plist</string>
+               <key>plist_version_key</key>
+               <string>CFBundleShortVersionString</string>
+            </dict>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+         </dict>
+      </array>
+   </dict>
+</plist>
