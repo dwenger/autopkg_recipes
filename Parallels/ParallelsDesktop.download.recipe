@@ -38,8 +38,12 @@
 			<dict>
 				<key>prefetch_filename</key>
 				<string>True</string>
+				<key>curl_opts</key>
+					<array>
+						<string>-L</string>
+					</array>
 				<key>url</key>
-				<string>%url_version%%PLATFORM_ARCH%/</string>
+				<string>%url_version%%PLATFORM_ARCH%</string>
 			</dict>
 			<key>Processor</key>
 			<string>URLDownloader</string>
