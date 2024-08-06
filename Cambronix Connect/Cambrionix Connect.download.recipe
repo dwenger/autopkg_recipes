@@ -18,24 +18,24 @@
 		<dict>
 			<key>Arguments</key>
 			<dict>
-                <key>url</key>
-                <string>https://www.cambrionix.com/products/cambrionix-connect/</string>
-				<key>re_pattern</key>
-				<string>https:\/\/downloads.cambrionix.com\/connect\/.*\/Connect-.*-mac-universal.dmg</string>
+				<key>url</key>
+				<string>https://downloads.cambrionix.com/api/v1/software/cambrionix-connect/latest/macos/download</string>
+				<key>filename</key>
+				<string>%NAME%.zip</string>
 			</dict>
 			<key>Processor</key>
-			<string>URLTextSearcher</string>
+			<string>URLDownloader</string>
 		</dict>
 		<dict>
 			<key>Arguments</key>
 			<dict>
-                <key>url</key>
-                <string>%match%</string>
-				<key>filename</key>
-				<string>%NAME%.dmg</string>
+				<key>archive_path</key>
+				<string>%pathname%</string>
+				<key>destination_path</key>
+				<string>%RECIPE_CACHE_DIR%/Downloads/%NAME%</string>
 			</dict>
 			<key>Processor</key>
-			<string>URLDownloader</string>
+			<string>Unarchiver</string>
 		</dict>
 		<dict>
 			<key>Processor</key>
@@ -45,12 +45,23 @@
 			<key>Arguments</key>
 			<dict>
 				<key>input_path</key>
-				<string>%pathname%/Cambrionix Connect.app</string>
+				<string>%RECIPE_CACHE_DIR%/Downloads/%NAME%/%NAME%.app</string>
 				<key>requirement</key>
 				<string>identifier "com.cambrionix.connect" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "55C2J663BC"</string>
 			</dict>
 			<key>Processor</key>
 			<string>CodeSignatureVerifier</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>app_path</key>
+				<string>%RECIPE_CACHE_DIR%/Downloads/%NAME%/%NAME%.app</string>
+				<key>pkg_path</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%.pkg</string>
+			</dict>
+			<key>Processor</key>
+			<string>AppPkgCreator</string>
 		</dict>
 	</array>
 </dict>
