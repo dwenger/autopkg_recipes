@@ -5,13 +5,13 @@
 	<key>Description</key>
 	<string>CVTC Specific Recipe - Imports the Xcode16 pkg from CVTC Apple OneDrive.</string>
 	<key>Identifier</key>
-	<string>com.github.dwenger.munki.Xcode15</string>
+	<string>com.github.dwenger.munki.Xcode16</string>
 	<key>Input</key>
 	<dict>
 		<key>MUNKI_REPO_SUBDIR</key>
 		<string>apps/%NAME%</string>
 		<key>NAME</key>
-		<string>Xcode15</string>
+		<string>Xcode16</string>
 		<key>pkginfo</key>
 		<dict>
 			<key>catalogs</key>
