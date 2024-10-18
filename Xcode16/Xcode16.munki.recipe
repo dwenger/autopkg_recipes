@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>CVTC Specific Recipe - Imports the Xcode16 pkg from CVTC Apple OneDrive.</string>
+	<key>Identifier</key>
+	<string>com.github.dwenger.munki.Xcode15</string>
+	<key>Input</key>
+	<dict>
+		<key>MUNKI_REPO_SUBDIR</key>
+		<string>apps/%NAME%</string>
+		<key>NAME</key>
+		<string>Xcode15</string>
+		<key>pkginfo</key>
+		<dict>
+			<key>catalogs</key>
+			<array>
+				<string>production</string>
+			</array>
+			<key>description</key>
+			<string>Xcode 16 includes everything you need to develop, test, and distribute apps across all Apple platforms.</string>
+			<key>developer</key>
+			<string>Apple</string>
+            <key>category</key>
+            <string>Uncategorized</string>
+			<key>display_name</key>
+			<string>%NAME%</string>
+			<key>name</key>
+			<string>%NAME%</string>
+			<key>unattended_install</key>
+			<true/>
+			<key>postinstall_script</key>
+			<string>#!/bin/zsh
+
+#Add everyone to Developer group
+/usr/sbin/DevToolsSecurity -enable
+/usr/sbin/dseditgroup -o edit -a everyone -t group _developer
+
+# Accept EULA so there is no related UI prompt
+if [ -e "/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild" ]; then
+  /usr/bin/xcode-select -s "/Applications/Xcode.app"
+  "/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild" -license accept
+  /usr/bin/xcodebuild -runFirstLaunch
+fi
+
+# Download all platforms
+/usr/bin/xcodebuild -downloadAllPlatforms
+
+# Just in case the xcodebuild command above fails to accept the EULA, set the license acceptance info 
+# in /Library/Preferences/com.apple.dt.Xcode.plist. For more details on this, see Tim Sutton's post: 
+# http://macops.ca/deploying-xcode-the-trick-with-accepting-license-agreements/
+if [ -e "/Applications/Xcode.app/Contents/Resources/LicenseInfo.plist" ]; then
+   xcode_version_number=$(/usr/bin/defaults read "/Applications/Xcode.app/Contents/"Info CFBundleShortVersionString)
+   xcode_build_number=$(/usr/bin/defaults read "/Applications/Xcode.app/Contents/Resources/"LicenseInfo licenseID)
+   xcode_license_type=$(/usr/bin/defaults read "/Applications/Xcode.app/Contents/Resources/"LicenseInfo licenseType)
+   if [ "${xcode_license_type}" = "GM" ]; then
+       /usr/bin/defaults write "/Library/Preferences/"com.apple.dt.Xcode IDEXcodeVersionForAgreedToGMLicense "$xcode_version_number"
+       /usr/bin/defaults write "/Library/Preferences/"com.apple.dt.Xcode IDELastGMLicenseAgreedTo "$xcode_build_number"
+    else
+       /usr/bin/defaults write "/Library/Preferences/"com.apple.dt.Xcode IDEXcodeVersionForAgreedToBetaLicense "$xcode_version_number"
+       /usr/bin/defaults write "/Library/Preferences/"com.apple.dt.Xcode IDELastBetaLicenseAgreedTo "$xcode_build_number"
+   fi
+fi
+
+# Install Mobile Device packages so there is no related UI prompt
+if [ -e "/Applications/Xcode.app/Contents/Resources/Packages/MobileDevice.pkg" ]; then
+  /usr/sbin/installer -dumplog -verbose -pkg "/Applications/Xcode.app/Contents/Resources/Packages/MobileDevice.pkg" -target /
+fi
+
+if [ -e "/Applications/Xcode.app/Contents/Resources/Packages/MobileDeviceDevelopment.pkg" ]; then
+  /usr/sbin/installer -dumplog -verbose -pkg "/Applications/Xcode.app/Contents/Resources/Packages/MobileDeviceDevelopment.pkg" -target /
+fi
+
+# Install Xcode System Resources package (added in Xcode 8)
+if [ -e "/Applications/Xcode.app/Contents/Resources/Packages/XcodeSystemResources.pkg" ]; then
+  /usr/sbin/installer -dumplog -verbose -pkg "/Applications/Xcode.app/Contents/Resources/Packages/XcodeSystemResources.pkg" -target /
+fi
+
+# Install Xcode Extension Support (added in Xcode 9)
+if [ -e "/Applications/Xcode.app/Contents/Resources/Packages/XcodeExtensionSupport.pkg" ]; then
+	/usr/sbin/installer -dumplog -verbose -pkg "/Applications/Xcode.app/Contents/Resources/Packages/XcodeExtensionSupport.pkg" -target /
+fi
+
+# Install CoreTypes package (added in Xcode 11)
+if [ -e "/Applications/Xcode.app/Contents/Resources/Packages/CoreTypes.pkg" ]; then
+  /usr/sbin/installer -dumplog -verbose -pkg "/Applications/Xcode.app/Contents/Resources/Packages/CoreTypes.pkg" -target /
+fi
+</string>
+		</dict>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>1.0.0</string>
+	<key>Process</key>
+	<array>
+        <dict>
+			<key>Arguments</key>
+			<dict>
+				<key>pattern</key>
+				<string>/Users/macadmin/Library/CloudStorage/OneDrive-SharedLibraries-ChippewaValleyTechnicalCollege/Apple Device Management - SpecialPackages/Xcode16/current/*.pkg</string>
+			</dict>
+			<key>Processor</key>
+			<string>FileFinder</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>source_path</key>
+				<string>%found_filename%</string>
+				<key>destination_path</key>
+				<string>%RECIPE_CACHE_DIR%</string>
+			</dict>
+			<key>Processor</key>
+			<string>Copier</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>ModeChanger</string>
+			<key>Arguments</key>
+			<dict>
+				<key>filename</key>
+				<string>%RECIPE_CACHE_DIR%/%found_basename%</string>
+				<key>mode</key>
+				<string>744</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_path</key>
+				<string>%RECIPE_CACHE_DIR%/%found_basename%</string>
+				<key>repo_subdirectory</key>
+				<string>%MUNKI_REPO_SUBDIR%</string>
+			</dict>
+			<key>Processor</key>
+			<string>MunkiImporter</string>
+		</dict>
+	</array>
+</dict>
+</plist>
